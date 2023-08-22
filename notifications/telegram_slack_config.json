@@ -1,0 +1,21 @@
+{
+  "base": {
+    "project": "ITDVN",
+    "environment": "dev",
+    "comment": "ui tests",
+    "reportLink": "",
+    "language": "en",
+    "allureFolder": "allure-report/",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "*****:*****_LK0avV61p17slMUQ8IjnQ4Wg",
+    "chat": "*****",
+    "replyTo": ""
+  },
+  "slack": {
+    "token": "****-3865760905700-Pnxdv5CHy2nq1Yg0aJNPPynX",
+    "chat": "#****_notifications",
+    "replyTo": ""
+  }
+}
