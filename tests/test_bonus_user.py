@@ -24,11 +24,10 @@ user_2 = {
 
 
 @pytest.mark.parametrize("user", [user_1, user_2])
-def test_go_to_the_site(user, setup_browser):
+def test_take_bonus(user, setup_browser):
     opened_page_website()
 
     close_advertising()
-    old_point = get_user_info(user)
 
     browser.element('.top-header .itvdnicon-login').click()
     browser.element('#login-form [type="email"]').type(user['Email'])
