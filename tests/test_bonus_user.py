@@ -1,10 +1,8 @@
-import time
 import pytest
 
 from selene import browser, be
 from datetime import datetime
 
-from test_examples2 import get_user_info
 from tests.conftest import opened_page_website, dotenv
 from itdvn_project_tests.helpers.helper import close_advertising
 from itdvn_project_tests.controls.utils import resource
