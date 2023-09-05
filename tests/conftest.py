@@ -22,13 +22,13 @@ def opened_page_website():
     browser.open(web_url)
 
 
-DEFAULT_BROWSER_VERSION = "114.0"
+DEFAULT_BROWSER_VERSION = "116.0"
 
 
 def pytest_addoption(parser):
     parser.addoption(
         '--browser_version',
-        default='114.0'
+        default='116.0'
     )
 
 
