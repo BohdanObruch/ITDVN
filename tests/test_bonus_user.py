@@ -1,11 +1,12 @@
 import pytest
 
-from selene import browser, be
+from selene import browser, be, have
 from datetime import datetime
 
 from tests.conftest import opened_page_website, dotenv
-from itdvn_project_tests.helpers.helper import close_advertising
+from itdvn_project_tests.helpers.helper import close_advertising, captcha
 from itdvn_project_tests.controls.utils import resource
+from selene.support.shared.jquery_style import s
 
 user_1_email = dotenv.get('USER_1_Email')
 user_1_pass = dotenv.get('USER_1_Password')
@@ -23,24 +24,30 @@ user_2 = {
 
 @pytest.mark.parametrize("user", [user_1, user_2])
 def test_take_bonus(user, setup_browser):
+    captcha()
+
     opened_page_website()
 
     close_advertising()
 
-    browser.element('.top-header .itvdnicon-login').click()
-    browser.element('#login-form [type="email"]').type(user['Email'])
-    browser.element('#login-form [type="password"]').type(user['Password'])
-    browser.element('.login-form-element [type="submit"]').click()
+    s('.top-header .itvdnicon-login').click()
+    s('#login-form [type="email"]').type(user['Email'])
+    s('#login-form [type="password"]').type(user['Password'])
+    s('#login-form .captcha-solver-info').with_(timeout=50).wait_until(have.exact_text('Captcha solved!'))
+    close_advertising()
+    s('.login-form-element [type="submit"]').click()
 
-    browser.element('.top-header #top-menu-no-avatar-btn').hover()
-    browser.element('.top-header #top-menu-user [href="/ua/cabinet"]').click()
+    s('.top-header #top-menu-no-avatar-btn').hover()
+    s('.top-header #top-menu-user [href="/ua/cabinet"]').click()
 
-    browser.element('.user-info .number[href="/ua/cabinet/bonuses"]').should(be.visible)
+    s('.user-info .cabinet-before-loading-bg').should(be.not_.visible)
+    s('.user-info .number[href*="cabinet/bonuses"]').wait_until(be.clickable)
 
     current_datetime = datetime.now().strftime('%d.%m.%y_%H.%M')
     user_name = "user_1" if user == user_1 else "user_2"
     screenshot_filename = f'screenshot_{user_name}_{current_datetime}.png'
 
-    browser.driver.save_screenshot(resource(screenshot_filename))
+    browser.driver.save_screenshot(resource(f'resources/{screenshot_filename}'))
+
 
 

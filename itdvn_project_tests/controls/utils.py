@@ -9,16 +9,8 @@ def resource(relative_path):
         Path(itdvn_project_tests.__file__)
         .parent
         .parent
-        .joinpath('resources/')
         .absolute()
     )
 
-    if not os.path.isdir(resources_path):
-        os.makedirs(resources_path)
+    return (resources_path / relative_path).as_posix()
 
-    return (
-        resources_path
-        .joinpath(relative_path)
-        .absolute()
-        .__str__()
-    )

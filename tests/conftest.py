@@ -6,6 +6,9 @@ from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
 from dotenv import dotenv_values, load_dotenv
 from itdvn_project_tests.controls import attach
+from selenium import webdriver
+
+from itdvn_project_tests.controls.utils import resource
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -33,10 +36,32 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope='function')
+def browser_management():
+    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--enable-automation')
+    extension_path = resource('itdvn_project_tests/controls/1.0.2_0.crx')
+    options.add_extension(extension_path)
+    browser.config.driver_options = options
+    browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
+    browser.config.hold_browser_open = (
+            os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
+    )
+    browser.config.timeout = float(os.getenv('selene.timeout', '4'))
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
+    browser.quit()
+
+
+@pytest.fixture(scope='function')
 def setup_browser(request):
     browser_version = request.config.getoption('--browser_version')
     browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
     options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--enable-automation')
+    extension_path = resource('itdvn_project_tests/controls/1.0.2_0.crx')
+    options.add_extension(extension_path)
     selenoid_capabilities = {
         "browserName": "chrome",
         "browserVersion": browser_version,
