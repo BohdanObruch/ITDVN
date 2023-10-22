@@ -1,5 +1,4 @@
 from selene import browser, have, be, command
-
 from tests.conftest import dotenv
 
 api_key = dotenv.get('API_KEY')
