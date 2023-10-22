@@ -33,8 +33,9 @@ def test_take_bonus(user, setup_browser):
     s('.top-header .itvdnicon-login').click()
     s('#login-form [type="email"]').type(user['Email'])
     s('#login-form [type="password"]').type(user['Password'])
-    s('#login-form .captcha-solver-info').with_(timeout=50).wait_until(have.exact_text('Captcha solved!'))
-    close_advertising()
+    s('#login-form .captcha-solver-info').should(have.text('Solve with 2Captcha')).click()
+    s('#login-form .captcha-solver-info').with_(timeout=60).wait_until(have.exact_text('Captcha solved!'))
+
     s('.login-form-element [type="submit"]').click()
 
     s('.top-header #top-menu-no-avatar-btn').hover()
@@ -48,6 +49,3 @@ def test_take_bonus(user, setup_browser):
     screenshot_filename = f'screenshot_{user_name}_{current_datetime}.png'
 
     browser.driver.save_screenshot(resource(f'resources/{screenshot_filename}'))
-
-
-

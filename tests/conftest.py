@@ -6,8 +6,6 @@ from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
 from dotenv import dotenv_values, load_dotenv
 from itdvn_project_tests.controls import attach
-from selenium import webdriver
-
 from itdvn_project_tests.controls.utils import resource
 
 
@@ -40,7 +38,7 @@ def browser_management():
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
-    extension_path = resource('itdvn_project_tests/controls/1.0.2_0.crx')
+    extension_path = resource('itdvn_project_tests/controls/captcha_solver.crx')
     options.add_extension(extension_path)
     browser.config.driver_options = options
     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
@@ -60,7 +58,7 @@ def setup_browser(request):
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
-    extension_path = resource('itdvn_project_tests/controls/1.0.2_0.crx')
+    extension_path = resource('itdvn_project_tests/controls/captcha_solver.crx')
     options.add_extension(extension_path)
     selenoid_capabilities = {
         "browserName": "chrome",
