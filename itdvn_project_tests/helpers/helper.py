@@ -12,7 +12,7 @@ def close_advertising():
 
 
 def captcha():
-    browser.open()
+    browser.open('/')
     browser.switch_to_tab(0).close_current_tab().switch_to_tab(0)
     browser.open('chrome-extension://ifibfemgeogfhoebkmokieepdoobkbpo/popup/popup.html')
 
