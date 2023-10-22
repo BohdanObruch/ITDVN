@@ -2,7 +2,6 @@ import pytest
 
 from selene import browser, be, have
 from datetime import datetime
-
 from tests.conftest import opened_page_website, dotenv
 from itdvn_project_tests.helpers.helper import close_advertising, captcha
 from itdvn_project_tests.controls.utils import resource
