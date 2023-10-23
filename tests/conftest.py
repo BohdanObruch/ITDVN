@@ -58,7 +58,8 @@ def setup_browser(request):
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
-    extension_path = resource('itdvn_project_tests/controls/captcha_solver.crx')
+    extension_path = resource('../itdvn_project_tests/controls/captcha_solver.crx')
+    print(extension_path)
     options.add_extension(extension_path)
     selenoid_capabilities = {
         "browserName": "chrome",

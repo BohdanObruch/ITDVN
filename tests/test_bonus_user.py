@@ -47,4 +47,4 @@ def test_take_bonus(user, setup_browser):
     user_name = "user_1" if user == user_1 else "user_2"
     screenshot_filename = f'screenshot_{user_name}_{current_datetime}.png'
 
-    browser.driver.save_screenshot(resource(f'resources/{screenshot_filename}'))
+    browser.driver.save_screenshot(resource(screenshot_filename))
