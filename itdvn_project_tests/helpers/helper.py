@@ -10,7 +10,8 @@ def close_advertising():
             browser.with_(timeout=10).element('.promocode').should(be.visible).perform(command.js.remove)
         if browser.with_(timeout=10).element('.cookies-message').matching(be.visible):
             browser.with_(timeout=10).element('.cookies-message').should(be.visible).perform(command.js.remove)
-        # browser.with_(timeout=10).element('#share').should(be.visible).perform(command.js.remove)
+        if browser.with_(timeout=10).element('#share').matching(be.visible):
+            browser.with_(timeout=10).element('#share').should(be.visible).perform(command.js.remove)
 
 
 def captcha():
