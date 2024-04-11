@@ -6,7 +6,7 @@ from selenium import webdriver as webdriver_selenium
 from selenium.webdriver.chrome.options import Options
 from dotenv import dotenv_values, load_dotenv
 from itdvn_project_tests.controls import attach
-from itdvn_project_tests.controls.utils import resource
+from itdvn_project_tests.controls.utils import path
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -23,13 +23,13 @@ def opened_page_website():
     browser.open(web_url)
 
 
-DEFAULT_BROWSER_VERSION = "119.0"
+DEFAULT_BROWSER_VERSION = "123.0"
 
 
 def pytest_addoption(parser):
     parser.addoption(
         '--browser_version',
-        default='119.0'
+        default='123.0'
     )
 
 
@@ -38,13 +38,10 @@ def browser_management():
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
-    extension_path = resource('../itdvn_project_tests/controls/captcha_solver.crx')
+    extension_path = path('captcha_solver.crx')
     options.add_extension(extension_path)
     browser.config.driver_options = options
     browser.config.browser_name = os.getenv('selene.browser_name', 'chrome')
-    browser.config.hold_browser_open = (
-            os.getenv('selene.hold_browser_open', 'false').lower() == 'true'
-    )
     browser.config.timeout = float(os.getenv('selene.timeout', '4'))
     browser.config.window_width = 1920
     browser.config.window_height = 1080
@@ -58,8 +55,7 @@ def setup_browser(request):
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
-    extension_path = resource('../itdvn_project_tests/controls/captcha_solver.crx')
-    print(extension_path)
+    extension_path = path('captcha_solver.crx')
     options.add_extension(extension_path)
     selenoid_capabilities = {
         "browserName": "chrome",

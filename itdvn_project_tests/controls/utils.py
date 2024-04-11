@@ -22,3 +22,17 @@ def resource(relative_path):
         .absolute()
         .__str__()
     )
+
+
+def path(relative_path):
+    import itdvn_project_tests
+    from pathlib import Path
+
+    return (
+        Path(itdvn_project_tests.__file__)
+        .parent
+        .joinpath('controls')
+        .joinpath(relative_path)
+        .absolute()
+        .__str__()
+    )
