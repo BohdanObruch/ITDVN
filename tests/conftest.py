@@ -55,6 +55,7 @@ def setup_browser(request):
     options = Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--enable-automation')
+    options.page_load_strategy = 'eager'
     extension_path = path('captcha_solver.crx')
     options.add_extension(extension_path)
     selenoid_capabilities = {
